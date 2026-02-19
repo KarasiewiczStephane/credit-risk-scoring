@@ -1,0 +1,27 @@
+data:
+  source: 'german_credit'  # or 'sample' for CI testing
+  sample_size: null  # null for full dataset
+  test_size: 0.2
+  random_state: 42
+
+model:
+  lightgbm:
+    n_estimators: 100
+    learning_rate: 0.1
+    max_depth: -1
+  optuna:
+    n_trials: 30
+    timeout: 600
+
+scorecard:
+  pdo: 20  # points to double odds
+  base_score: 600
+  base_odds: 50  # 50:1 good to bad
+
+fairness:
+  protected_attributes: ['age_group', 'personal_status']
+  metrics: ['demographic_parity', 'equalized_odds']
+
+api:
+  host: '0.0.0.0'
+  port: 8000
