@@ -59,7 +59,7 @@ def download_german_credit(data_dir: str = "data/raw") -> pd.DataFrame:
     if not filepath.exists():
         logger.info("Downloading German Credit dataset from UCI repository...")
         raw_path = filepath.with_suffix(".data")
-        urllib.request.urlretrieve(GERMAN_CREDIT_URL, raw_path)  # noqa: S310
+        urllib.request.urlretrieve(GERMAN_CREDIT_URL, raw_path)  # nosec B310  # noqa: S310
 
         df = pd.read_csv(raw_path, sep=" ", header=None, names=COLUMN_NAMES)
         df["class"] = df["class"].map({1: 0, 2: 1})  # 1=Good->0, 2=Bad->1
